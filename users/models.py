@@ -34,6 +34,9 @@ class Cohort(models.Model):
     date_modified = models.DateTimeField(auto_now=True)
     author = models.ForeignKey(IMUser, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.name
+
 
 class CohortMember(models.Model):
     cohort = models.ForeignKey(Cohort, on_delete=models.CASCADE)
@@ -42,5 +45,8 @@ class CohortMember(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
     author = models.ForeignKey(IMUser, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.member} - {self.cohort}"
 
 
