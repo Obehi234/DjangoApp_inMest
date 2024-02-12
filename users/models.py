@@ -8,14 +8,18 @@ class IMUser(models.Model):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     is_active = models.BooleanField(default=True)
-    USER_TYPE = [
+    USER_TYPE_CHOICES = [
         ("EIT", "EIT"),
         ("TEACHING_FELLOW", "TEACHING_FELLOW"),
         ("ADMIN_STAFF", "ADMIN_STAFF"),
         ("ADMIN", "ADMIN")
     ]
-    date_created = models.DateTimeField(auto_now_add=True)
-    date_updated = models.DateTimeField(auto_now=True)
+    user_type = models.CharField(max_length=20, choices=USER_TYPE_CHOICES)
+    date_created = models.DateField(auto_now_add=True)
+    date_updated = models.DateField(auto_now=True)
+
+    def __str__(self) -> str:
+        return f"{self.first_name} {self.last_name}"
 
 
 
