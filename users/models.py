@@ -40,4 +40,3 @@ class CohortMember(models.Model):
     author = models.ForeignKey(IMUser, on_delete=models.CASCADE)
 
 
-class Query(models.Model):
