@@ -40,4 +40,13 @@ class Query(models.Model):
     author = models.ForeignKey(IMUser, on_delete=models.CASCADE, related_name = "query_author")
 
 
+class QueryComment(models.Model):
+   
+    query = models.ForeignKey(Query, on_delete=models.CASCADE)
+    comment = models.TextField()
+    date_created = models.DateTimeField(auto_now_add=True)
+    date_modified = models.DateTimeField(auto_now=True)
+    author = models.ForeignKey(IMUser, on_delete=models.CASCADE, related_name = "query_comment_author")
+
+
 
