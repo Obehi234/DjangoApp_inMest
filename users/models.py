@@ -39,3 +39,5 @@ class CohortMember(models.Model):
     date_modified = models.DateTimeField(auto_now=True)
     author = models.ForeignKey(IMUser, on_delete=models.CASCADE)
 
+
+class Query(models.Model):
