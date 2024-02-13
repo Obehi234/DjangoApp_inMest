@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from inmest.users.models import Cohort, CohortMember, IMUser
+from .models import Cohort, CohortMember, IMUser
 
 # Register your models here.
 

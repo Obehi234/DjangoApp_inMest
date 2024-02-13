@@ -1,6 +1,6 @@
 from django.db import models
 
-from inmest.users.models import Cohort, IMUser
+from users.models import Cohort, IMUser
 
 # Create your models here.
 class ClassSchedule(models.Model):
@@ -12,16 +12,19 @@ class ClassSchedule(models.Model):
     repeat_frequency = models.CharField(max_length=50)
     is_active = models.BooleanField(default=True)
     organizer= models.CharField(max_length=50)
-    cohort = models.ForeignKey(Cohort, on_delete=models.CASCADE),
+    cohort = models.ForeignKey(Cohort, on_delete=models.CASCADE, related_name="cohort_class_schedule"),
     venue = models.TextField()
 
+    def __str__(self):
+        return f"{self.title} ({self.cohort.name})"
+
 class ClassAttendance(models.Model):
-    class_schedule = models.ForeignKey(ClassSchedule, on_delete=models.CASCADE)
+    class_schedule = models.ForeignKey(ClassSchedule, on_delete=models.CASCADE, related_name="class_attendance_class_schedule")
     date_created = models.DateField()
     date_modified = models.DateField() 
     is_present = models.BooleanField(default=True)
-    attendee = models.ForeignKey(IMUser, on_delete=models.CASCADE), 
-    author = models.ForeignKey(IMUser, on_delete=models.CASCADE, related_name = "cohort_member_author")
+    attendee = models.ForeignKey(IMUser, on_delete=models.CASCADE, related_name = "class_attendance_attendee"), 
+    author = models.ForeignKey(IMUser, on_delete=models.CASCADE, related_name = "cohort_attendance_author")
 
 class Query(models.Model):
     title = models.CharField(max_length=50)
@@ -42,7 +45,7 @@ class Query(models.Model):
 
 class QueryComment(models.Model):
    
-    query = models.ForeignKey(Query, on_delete=models.CASCADE)
+    query = models.ForeignKey(Query, on_delete=models.CASCADE, related_name="query_comment_query")
     comment = models.TextField()
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
